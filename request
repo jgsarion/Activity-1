@@ -1,0 +1,34 @@
+<?php
+include 'db.php';
+session_start();
+$user_id = $_SESSION['user_id'] ?? 1;
+
+if (isset($_POST['request'])) {
+    $item = $_POST['item'];
+    $qty = $_POST['qty'];
+
+    $conn->query("INSERT INTO requests (user_id, item_name, qty, status)
+                  VALUES ($user_id, '$item', '$qty', 'Pending')");
+}
+?>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Request Supplies</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="p-6 bg-gray-100">
+
+<h2 class="text-xl font-semibold mb-4">Request Supplies</h2>
+
+<form method="POST" class="bg-white shadow p-6 rounded-lg grid gap-4 w-1/2">
+    <input class="border p-2" type="text" name="item" placeholder="Item Name" required>
+    <input class="border p-2" type="number" name="qty" placeholder="Quantity" required>
+
+    <button name="request" class="bg-yellow-600 text-white p-2 rounded-md hover:bg-yellow-700">
+        Submit Request
+    </button>
+</form>
+
+</body>
+</html>
