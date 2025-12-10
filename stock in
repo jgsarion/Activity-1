@@ -1,0 +1,37 @@
+<?php
+include 'db.php';
+
+if (isset($_POST['add'])) {
+    $name = $_POST['name'];
+    $qty = $_POST['qty'];
+    $unit = $_POST['unit'];
+    $exp = $_POST['exp'];
+
+    $conn->query("INSERT INTO inventory (item_name, qty, unit, expiry_date) 
+                  VALUES ('$name', '$qty', '$unit', '$exp')");
+    echo "<script>alert('Stock Added!');</script>";
+}
+?>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Stock In</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="p-6 bg-gray-100">
+
+<h2 class="text-xl font-semibold mb-4">Stock In</h2>
+
+<form method="POST" class="bg-white shadow p-6 rounded-lg grid gap-4 w-1/2">
+    <input class="border p-2" type="text" name="name" placeholder="Item Name" required>
+    <input class="border p-2" type="number" name="qty" placeholder="Quantity" required>
+    <input class="border p-2" type="text" name="unit" placeholder="Unit (kg, pcs)" required>
+    <input class="border p-2" type="date" name="exp" required>
+
+    <button name="add" class="bg-emerald-600 text-white p-2 rounded-md hover:bg-emerald-700">
+        Add Stock
+    </button>
+</form>
+
+</body>
+</html>
